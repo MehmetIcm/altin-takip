@@ -19,13 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
+
+      # Depoda web klasörü yoksa Flutter şablonundan üretir.
+      - name: Web platform dosyalarını hazırla
+        run: |
+          if [ ! -f web/index.html ]; then
+            flutter create --platforms=web --project-name altin_takip /tmp/scaffold
+            cp -R /tmp/scaffold/web ./web
+          fi
+
       - run: flutter pub get
       - run: flutter test
       - run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
