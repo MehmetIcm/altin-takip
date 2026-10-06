@@ -25,17 +25,25 @@ jobs:
           channel: stable
           cache: true
 
-      # Depoda web klasörü yoksa Flutter şablonundan üretir.
-      - name: Web platform dosyalarını hazırla
+      # Web platformu, ikonlar ve gizlilik sayfası
+      - name: Web dosyalarını hazırla
         run: |
           if [ ! -f web/index.html ]; then
             flutter create --platforms=web --project-name altin_takip /tmp/scaffold
             cp -R /tmp/scaffold/web ./web
           fi
+          cp -R web_extras/. web/
+          REPO_URL="https://github.com/${{ github.repository }}"
+          sed -i "s#__REPO_URL__#${REPO_URL}#g" web/gizlilik.html
+          sed -i 's#<title>altin_takip</title>#<title>Altın Takip</title>#; s#A new Flutter project.#Güncel altın fiyatları, portföy ve hesaplama araçları.#' web/index.html
+          sed -i 's#"name": "altin_takip"#"name": "Altın Takip"#; s#"short_name": "altin_takip"#"short_name": "Altın Takip"#' web/manifest.json
 
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+      - run: >
+          flutter build web --release
+          --base-href "/${{ github.event.repository.name }}/"
+          --dart-define=PRIVACY_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/gizlilik.html
 
       - uses: actions/upload-pages-artifact@v3
         with:

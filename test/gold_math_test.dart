@@ -15,6 +15,7 @@ PriceQuote quote({double? buy, double? sell, double? change}) => PriceQuote(
     );
 
 void main() {
+  bilezikTests();
   group('Makas', () {
     test('Makas = Satış - Alış, yüzde satışa göre', () {
       final q = quote(buy: 10600, sell: 10850);
@@ -97,6 +98,27 @@ void main() {
     });
     test('Yeterli geçmiş yoksa null', () {
       expect(GoldCalc.changeOver(bars, 142, DateTime.utc(2026, 10, 10), 365), isNull);
+    });
+  });
+}
+
+void bilezikTests() {
+  group('Bilezik ilan kontrolü', () {
+    test('Fark ve yüzde doğru hesaplanır', () {
+      final r = BraceletMath.compare(listingPrice: 70000, grams: 10, goldPerGram: 6000)!;
+      expect(r.goldValue, 60000);
+      expect(r.premium, 10000);
+      expect(r.premiumPercent, closeTo(16.6667, 0.001));
+      expect(r.pricePerGram, 7000);
+    });
+    test('İlan altın değerinden ucuzsa fark negatif', () {
+      final r = BraceletMath.compare(listingPrice: 55000, grams: 10, goldPerGram: 6000)!;
+      expect(r.premium, -5000);
+    });
+    test('Geçersiz girdilerde null', () {
+      expect(BraceletMath.compare(listingPrice: 1, grams: 0, goldPerGram: 6000), isNull);
+      expect(BraceletMath.compare(listingPrice: 1, grams: 1, goldPerGram: null), isNull);
+      expect(BraceletMath.compare(listingPrice: 0, grams: 1, goldPerGram: 6000), isNull);
     });
   });
 }

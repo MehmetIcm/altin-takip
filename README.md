@@ -19,7 +19,7 @@ flutter run -d macos
 
 Veri kaynakları ve sınırlamalar: `docs/DATA_PROVIDERS.md`
 
-## Durum (v0.1)
+## Durum (v0.2)
 Çalışır: ana ekran, piyasalar, grafikler (ons gerçek, gram hesaplanmış), ürün detayı,
 favoriler, portföy + kâr/zarar, hesap makinesi, uygulama içi alarmlar, ayarlar,
 önbellek ve hata durumları, responsive navigasyon.
@@ -29,3 +29,7 @@ widget testleri, entegrasyon testi, uygulama ikonu.
 ## Yayın (GitHub Pages)
 `main` dalına her push, `.github/workflows/deploy.yml` ile web sürümünü derleyip yayınlar.
 Depo ayarlarında Settings > Pages > Source: "GitHub Actions" seçilmelidir.
+
+## Android / Google Play
+`.github/workflows/android.yml` APK ve AAB üretir (elle çalıştırılır). Ayrıntılar: `docs/PLAY_STORE.md`.
+Mağaza metni ve görseller: `store/`. Gizlilik politikası sayfası `web_extras/gizlilik.html` (Pages ile yayınlanır).

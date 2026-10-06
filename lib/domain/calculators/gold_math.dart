@@ -117,3 +117,44 @@ class AlertEvaluator {
     }
   }
 }
+
+class ListingCheck {
+  const ListingCheck({
+    required this.goldValue,
+    required this.premium,
+    required this.premiumPercent,
+    required this.pricePerGram,
+  });
+
+  /// Altın değeri: gram x güncel (satış) gram fiyatı.
+  final double goldValue;
+
+  /// İlan fiyatı - altın değeri. İşçilik, kâr payı, KDV vb. içerir.
+  final double premium;
+  final double premiumPercent;
+
+  /// İlan fiyatının gram başına karşılığı.
+  final double pricePerGram;
+}
+
+class BraceletMath {
+  /// Bir bilezik ilanının güncel altın değerine göre ne kadar farklı olduğunu hesaplar.
+  /// Veri uydurmaz: [goldPerGram] güncel piyasa fiyatından gelmelidir.
+  static ListingCheck? compare({
+    required double listingPrice,
+    required double grams,
+    required double? goldPerGram,
+  }) {
+    if (goldPerGram == null || goldPerGram <= 0 || grams <= 0 || listingPrice <= 0) {
+      return null;
+    }
+    final value = grams * goldPerGram;
+    final premium = listingPrice - value;
+    return ListingCheck(
+      goldValue: value,
+      premium: premium,
+      premiumPercent: premium / value * 100,
+      pricePerGram: listingPrice / grams,
+    );
+  }
+}

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../core/config/app_config.dart';
 
 import '../../core/l10n/strings.dart';
 import '../../core/theme/app_theme.dart';
@@ -94,14 +97,24 @@ class SettingsScreen extends ConsumerWidget {
                 style: TextStyle(color: p.muted, fontSize: 13),
               ),
             ),
+            if (AppConfig.privacyUrl.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: OutlinedButton.icon(
+                  onPressed: () => launchUrl(Uri.parse(AppConfig.privacyUrl),
+                      mode: LaunchMode.externalApplication),
+                  icon: const Icon(Icons.privacy_tip_outlined),
+                  label: const Text('Gizlilik politikasını aç'),
+                ),
+              ),
             const SectionTitle('Hakkında'),
             Panel(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Altın Takip 0.1.0', style: TextStyle(fontWeight: FontWeight.w700)),
+                const Text('Altın Takip ${AppConfig.appVersion}', style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 Text(
                   'Veri kaynakları: Trunçgil Finans (Türkiye altın ve döviz fiyatları), '
-                  'XAUS (ons altın), Frankfurter/ECB (geçmiş USD/TRY).\n\n'
+                  'XAUS (ons altın ve geçmiş veri), Frankfurter / Avrupa Merkez Bankası (geçmiş USD/TRY).\n\n'
                   'Gram altın geçmiş grafiği piyasa verisi değil, ons × USD/TRY ile hesaplanmış '
                   'göstergedir. Kaynakların kullanım şartları ve ticari kullanım koşulları '
                   'yayın öncesinde ayrıca doğrulanmalıdır.\n\n${S.disclaimer}',

@@ -19,6 +19,10 @@ fiyat üretilmez; veri alınamazsa durum kullanıcıya açıkça gösterilir.
 - **Ons günlük değişimi:** XAUS günlük kapanışına göre hesaplanır.
 - Trunçgil `Update_Date` alanı İstanbul saati kabul edilir (doğrulanmadı).
 
+## Eklenmeyen veriler
+- **Banka ve kuyumcu bazlı fiyatlar:** doviz.com, Bigpara gibi sitelerde görünüyor, ancak resmi/anahtarsız bir API doğrulanamadı. Site taraması kullanım şartlarını ihlal edebileceğinden eklenmedi.
+- **Alışveriş sitelerinden en ucuz bilezik listesi:** Trendyol/Hepsiburada API'leri yalnızca satıcılara açık; Akakçe/Cimri'nin API'si yok. Bunun yerine uygulamada "İlan Kontrolü" aracı var: kullanıcı ilan fiyatını girer, uygulama güncel altın değerine göre farkı hesaplar.
+
 ## Yayın öncesi doğrulanması gerekenler
 - Trunçgil'in ticari kullanım şartları ve limitin kullanıcı başına mı genel mi olduğu.
 - XAUS'un geçmiş verisi Yahoo Finance kaynaklıdır; Yahoo şartları ticari yeniden dağıtıma izin vermeyebilir.
