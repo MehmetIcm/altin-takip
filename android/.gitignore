@@ -1,0 +1,21 @@
+# Gradle cache
+.gradle/
+
+# Android local configuration
+/local.properties
+
+# Generated files
+/captures/
+GeneratedPluginRegistrant.java
+.cxx/
+
+# Android signing credentials - NEVER COMMIT
+key.properties
+**/key.properties
+**/*.keystore
+**/*.jks
+
+# Keep Gradle Wrapper files tracked by Git
+# gradle-wrapper.jar
+# /gradlew
+# /gradlew.bat
