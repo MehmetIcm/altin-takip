@@ -1,9 +1,18 @@
+# Dart ve Flutter
 .dart_tool/
-.idea/
-build/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# IDE dosyaları
+.idea/
 *.iml
+.vscode/
+
+# Ortam değişkenleri ve gizli bilgiler
 .env
 .env.*
 !.env.example
@@ -12,3 +21,25 @@ build/
 android/key.properties
 *.jks
 *.keystore
+key.properties
+
+# Android build çıktıları
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# APK ve AAB dosyaları
+*.apk
+*.aab
+*.apks
+
+# Geçici sertifika istekleri
+*.csr
+
+# macOS
+.DS_Store
+
+# Log dosyaları
+*.log
